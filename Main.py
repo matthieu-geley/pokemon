@@ -23,14 +23,17 @@ class Combat:
 		if self.poke1.getVie() <= 0:
 			self.combat = True
 			print("Le", self.poke1.getNom(), "n'est plus apte au combat. \nVictoire de", self.poke2.getNom())
+			return True
 		elif self.poke2.getVie() <= 0:
 			self.combat = True
 			print("Le", self.poke2.getNom(), "n'est plus apte au combat.\nVictoire de",self.poke1.getNom())
+			return True
 
 	def attaque(self, atta, defens):
 		alea = random.randint(0,2)
+		self.degatType(atta, defens)
 		if alea != 0:
-			degats = atta.attaque - defens.defense
+			degats = (atta.attaque * self.multiplier) - defens.defense
 			defens.moinsPV(degats)
 			print ("\033[1;31m", atta.getNom(), "a touché avec son attaque.\033[0m")
 			print("\033[1;34mPv restant de", defens.getNom(),":", defens.getVie(),"\033[0m")
@@ -39,14 +42,44 @@ class Combat:
 			print("\033[1;34mPv restant de", defens.getNom(),":", defens.getVie(),"\033[0m")
 
 	def combatpoke(self):
+
 		while self.combat != True:
+			self.VerifVie()
 			self.attaque(self.poke1, self.poke2)
 			self.VerifVie()
-			time.sleep(0.65)
+			#time.sleep(0.65)
 			self.attaque(self.poke2, self.poke1)
-			self.VerifVie()
 			time.sleep(0.65)
 
+	def degatType(self, atta, defens):
+		self.multiplier = 1
+		if atta.TypeNom == "feu":
+			if defens.TypeNom == "eau":
+				self.multiplier = 0.5
+			elif defens.TypeNom == "plante":
+				self.multiplier = 2
+			elif defens.TypeNom == "sol":
+				self.multiplier = 1
+			else:
+				self.multiplier =1
+		elif atta.TypeNom == "eau":
+			if defens.TypeNom == "feu":
+				self.multiplier = 2
+			elif defens.TypeNom == "plante":
+				self.multiplier = 0.5
+			elif defens.TypeNom == "sol":
+				self.multiplier = 1
+			else:
+				self.multiplier =1
+		elif atta.TypeNom == "plante":
+				if defens.TypeNom == "eau":
+					self.multiplier = 2
+				elif defens.TypeNom == "feu":
+					self.multiplier = 0.5
+				elif defens.TypeNom == "sol":
+					self.multiplier = 1
+				else:
+					self.multiplier =1
 
 
 Salameche = Feu("Salameche")

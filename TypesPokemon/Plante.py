@@ -6,9 +6,9 @@ class Plante(Pokemon):
 		Pokemon.__init__(self, nomPoke)
 		self.TypeNom = "plante"
 		self.nomPoke = nomPoke
-		self.Tpvie = 25
-		self.Tpatt = 10
-		self.Tpdef = 35
-		self.setVie(25)
+		self.Tpvie = 5
+		self.Tpatt = 5
+		self.Tpdef = 5
+		self.setVie(self.Tpvie)
 		self.Typepatt = self.Tpatt + self.attaque
 		self.Typedeff = self.Tpdef + self.defense

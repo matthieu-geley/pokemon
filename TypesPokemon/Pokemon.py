@@ -18,6 +18,3 @@ class Pokemon:
 
 	def moinsPV(self, nPV):
 		self.__vie -= nPV
-
-	def getInfos(self):
-		print(self.__nomPoke, self.__vie, self.type, self.defense, self.attaque, self.niveau)
